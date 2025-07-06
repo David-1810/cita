@@ -107,115 +107,121 @@
     }
 
     const historia = {
-      inicio: {
-        texto: "¿Te gustaría venir conmigo a una playa secreta para una cita especial?",
-        opciones: [
-          { texto: "¡Sí! Me encantaría 🌅", siguiente: "llegamos_playa" },
-          { texto: "¿Playa secreta? suena misterioso...", siguiente: "curiosidad_playa" }
-        ]
-      },
-      curiosidad_playa: {
-        texto: "Lo es... pero solo para quienes saben disfrutar de la magia del momento. ¿Confías en mí para llevarte?",
-        opciones: [
-          { texto: "Confío en ti 💕", siguiente: "llegamos_playa" },
-          { texto: "Demuéstramelo con algo lindo", siguiente: "poema" }
-        ]
-      },
-      llegamos_playa: {
-        texto: "Llegamos a la playa. El atardecer pinta el cielo de rosa. ¿Qué quieres hacer primero?",
-        opciones: [
-          { texto: "Caminar descalzos por la orilla", siguiente: "caminar_orilla" },
-          { texto: "Sentarnos a mirar el mar", siguiente: "mirar_mar" }
-        ]
-      },
-      caminar_orilla: {
-        texto: "Siento tu mano rozar la mía... ¿La tomo suavemente o te dejo provocarme?",
-        opciones: [
-          { texto: "Tómala, estoy esperando eso", siguiente: "confesion" },
-          { texto: "Provócame, me encanta el juego", siguiente: "juego_mirada" }
-        ]
-      },
-      mirar_mar: {
-        texto: "Nos sentamos cerca, sin palabras... solo el sonido del mar. ¿En qué piensas mientras me miras?",
-        opciones: [
-          { texto: "En lo feliz que me haces", siguiente: "confesion" },
-          { texto: "En lo bien que se siente esto contigo", siguiente: "juego_mirada" },
-          { texto: "Quiero escribir lo que pienso...", personalizada: true, siguiente: "confesion" }
-        ]
-      },
-      confesion: {
-        texto: "Me acerco y te digo que tengo algo que confesarte... ¿Quieres saber qué es?",
-        opciones: [
-          { texto: "Sí, me muero de curiosidad", siguiente: "pregunta_extra1" },
-          { texto: "Solo si me lo dices mirándome a los ojos", siguiente: "pregunta_extra1" }
-        ]
-      },
-      pregunta_extra1: {
-        texto: "Me haces sentir algo muy especial. ¿Cómo te gustaría que terminara esta cita?",
-        opciones: [
-          { texto: "Con una fogata en la arena", siguiente: "pregunta_extra2" },
-          { texto: "Con un baile bajo las estrellas", siguiente: "pregunta_extra2" },
-          { texto: "Quiero escribir mi propia idea...", personalizada: true, siguiente: "pregunta_extra2" }
-        ]
-      },
-      pregunta_extra2: {
-        texto: "¿Te gustaría que te cantara algo o simplemente abrazarte fuerte?",
-        opciones: [
-          { texto: "Cántame algo desde el alma", siguiente: "pregunta_extra3" },
-          { texto: "Solo abrázame fuerte", siguiente: "pregunta_extra3" }
-        ]
-      },
-      pregunta_extra3: {
-        texto: "¿Te imaginas si esto fuera real? ¿Qué harías si estuviera contigo ahora mismo?",
-        opciones: [
-          { texto: "Te abrazaría sin soltarte", siguiente: "pregunta_extra4" },
-          { texto: "Te besaría bajo la luna", siguiente: "pregunta_extra4" },
-          { texto: "Prefiero escribir lo que haría...", personalizada: true, siguiente: "pregunta_extra4" }
-        ]
-      },
-      pregunta_extra4: {
-        texto: "¿Me dejarías robarte una sonrisa cada día?",
-        opciones: [
-          { texto: "Sí, siempre y cuando me robes besos también", siguiente: "pregunta_extra5" },
-          { texto: "Solo si prometes no devolverla jamás", siguiente: "pregunta_extra5" }
-        ]
-      },
-      pregunta_extra5: {
-        texto: "¿Y si te dijera que todo esto es apenas el inicio de muchas más aventuras juntos?",
-        opciones: [
-          { texto: "Entonces quiero más, muchas más...", siguiente: "pregunta_extra6" },
-          { texto: "Solo si me prometes que habrá más atardeceres contigo", siguiente: "pregunta_extra6" }
-        ]
-      },
-      pregunta_extra6: {
-        texto: "¿Crees que dos personas pueden conocerse en una sola cita, o prefieres mil momentos pequeñitos?",
-        opciones: [
-          { texto: "Prefiero mil momentos tuyos", siguiente: "pregunta_extra7" },
-          { texto: "Una cita puede decirlo todo", siguiente: "pregunta_extra7" }
-        ]
-      },
-      pregunta_extra7: {
-        texto: "Si tuvieras que susurrarme algo al oído, ¿qué me dirías?",
-        opciones: [
-          { texto: "Que me encantas más de lo que debería", siguiente: "pregunta_extra8" },
-          { texto: "Que no quiero que esto termine nunca", siguiente: "pregunta_extra8" }
-        ]
-      },
-      pregunta_extra8: {
-        texto: "¿Qué título le pondrías a este momento?",
-        opciones: [
-          { texto: "La cita perfecta que aún no ha ocurrido", siguiente: "poema" },
-          { texto: "Entre arena, risas y promesas", siguiente: "poema" }
-        ]
-      },
-      juego_mirada: {
-        texto: "Tus ojos me retan dulcemente. ¿Jugamos a adivinar lo que pensamos el uno del otro?",
-        opciones: [
-          { texto: "Va, pero tú primero 😉", siguiente: "pregunta_extra1" },
-          { texto: "Solo si me das una pista con un beso", siguiente: "pregunta_extra1" }
-        ]
-      }
-    };
+            inicio: {
+                texto: "¿Te gustaría venir conmigo a una playa secreta para una cita especial?",
+                opciones: [
+                    { texto: "¡Sí! Me encantaría 🌅", siguiente: "llegamos_playa" },
+                    { texto: "¿Playa secreta? suena misterioso...", siguiente: "curiosidad_playa" }
+                ]
+            },
+            curiosidad_playa: {
+                texto: "Lo es... pero solo para quienes saben disfrutar de la magia del momento. ¿Confías en mí para llevarte?",
+                opciones: [
+                    { texto: "Confío en ti 💕", siguiente: "llegamos_playa" },
+                    { texto: "Demuéstramelo con algo lindo", siguiente: "poema" }
+                ]
+            },
+            llegamos_playa: {
+                texto: "Llegamos a la playa. El atardecer pinta el cielo de rosa. ¿Qué quieres hacer primero?",
+                opciones: [
+                    { texto: "Caminar descalzos por la orilla", siguiente: "caminar_orilla" },
+                    { texto: "Sentarnos a mirar el mar", siguiente: "mirar_mar" }
+                ]
+            },
+            caminar_orilla: {
+                texto: "Siento tu mano rozar la mía... ¿La tomo suavemente o te dejo provocarme?",
+                opciones: [
+                    { texto: "Tómala, estoy esperando eso", siguiente: "confesion" },
+                    { texto: "Provócame, me encanta el juego", siguiente: "juego_mirada" }
+                ]
+            },
+            mirar_mar: {
+                texto: "Nos sentamos cerca, sin palabras... solo el sonido del mar. ¿En qué piensas mientras me miras?",
+                opciones: [
+                    { texto: "En lo feliz que me haces", siguiente: "confesion" },
+                    { texto: "En lo bien que se siente esto contigo", siguiente: "juego_mirada" },
+                    { texto: "Quiero escribir lo que pienso...", personalizada: true, siguiente: "confesion" }
+                ]
+            },
+            confesion: {
+                texto: "Me acerco y te digo que tengo algo que confesarte... ¿Quieres saber qué es?",
+                opciones: [
+                    { texto: "Sí, me muero de curiosidad", siguiente: "pregunta_extra1" },
+                    { texto: "Solo si me lo dices mirándome a los ojos", siguiente: "pregunta_extra1" }
+                ]
+            },
+            pregunta_extra1: {
+                texto: "Me haces sentir algo muy especial. ¿Cómo te gustaría que terminara esta cita?",
+                opciones: [
+                    { texto: "Con una fogata en la arena", siguiente: "pregunta_extra2" },
+                    { texto: "Con un baile bajo las estrellas", siguiente: "pregunta_extra2" },
+                    { texto: "Quiero escribir mi propia idea...", personalizada: true, siguiente: "pregunta_extra2" }
+                ]
+            },
+
+            pregunta_extra2: {
+                texto: "¿Te gustaría que te cantara algo o simplemente abrazarte fuerte?",
+                opciones: [
+                    { texto: "Cántame algo desde el alma", siguiente: "pregunta_extra3" },
+                    { texto: "Solo abrázame fuerte", siguiente: "pregunta_extra3" }
+                ]
+            },
+            pregunta_extra3: {
+                texto: "¿Te imaginas si esto fuera real? ¿Qué harías si estuviera contigo ahora mismo?",
+                opciones: [
+                    { texto: "Te abrazaría sin soltarte", siguiente: "pregunta_extra4" },
+                    { texto: "Te besaría bajo la luna", siguiente: "pregunta_extra4" },
+                    { texto: "Prefiero escribir lo que haría...", personalizada: true, siguiente: "pregunta_extra4" }
+                ]
+            },
+            pregunta_extra4: {
+                texto: "¿Me dejarías robarte una sonrisa cada día?",
+                opciones: [
+                    { texto: "Sí, siempre y cuando me robes besos también", siguiente: "pregunta_extra5" },
+                    { texto: "Solo si prometes no devolverla jamás", siguiente: "pregunta_extra5" },
+                    { texto: "Prefiero escribir lo que haría...", personalizada: true, siguiente: "pregunta_extra4" }
+                ]
+            },
+            pregunta_extra5: {
+                texto: "¿Y si te dijera que todo esto es apenas el inicio de muchas más aventuras juntos?",
+                opciones: [
+                    { texto: "Entonces quiero más, muchas más...", siguiente: "pregunta_extra6" },
+                    { texto: "Solo si me prometes que habrá más atardeceres contigo", siguiente: "pregunta_extra6" },
+                    { texto: "Prefiero escribir lo que pienso...", personalizada: true, siguiente: "pregunta_extra6" }
+                ]
+            },
+            pregunta_extra6: {
+                texto: "¿Crees que dos personas pueden conocerse en una sola cita, o prefieres mil momentos pequeñitos?",
+                opciones: [
+                    { texto: "Prefiero mil momentos tuyos", siguiente: "pregunta_extra7" },
+                    { texto: "Una cita puede decirlo todo", siguiente: "pregunta_extra7" },
+                    { texto: "Prefiero escribir lo que pienso...", personalizada: true, siguiente: "pregunta_extra7" }
+                ]
+            },
+            pregunta_extra7: {
+                texto: "Si tuvieras que susurrarme algo al oído, ¿qué me dirías?",
+                opciones: [
+                    { texto: "Que me encantas más de lo que debería", siguiente: "pregunta_extra8" },
+                    { texto: "Que no quiero que esto termine nunca", siguiente: "pregunta_extra8" },
+                    { texto: "Prefiero escribir lo que diría...", personalizada: true, siguiente: "pregunta_extra8" }
+                ]
+            },
+            pregunta_extra8: {
+                texto: "¿Qué título le pondrías a este momento?",
+                opciones: [
+                    { texto: "La cita perfecta que aún no ha ocurrido", siguiente: "poema" },
+                    { texto: "Entre arena, risas y promesas", siguiente: "poema" },
+                    { texto: "Prefiero escribir mi propio título...", personalizada: true, siguiente: "poema" }
+                ]
+            },
+            juego_mirada: {
+                texto: "Tus ojos me retan dulcemente. ¿Jugamos a adivinar lo que pensamos el uno del otro?",
+                opciones: [
+                    { texto: "Va, pero tú primero 😉", siguiente: "pregunta_extra1" },
+                    { texto: "Solo si me das una pista con un beso", siguiente: "pregunta_extra1" }
+                ]
+            }
+        };
 
     function reproducirSonidoOlas() {
       document.getElementById("olasYouTube").src = "https://www.youtube.com/embed/qbNUKmpYPtk?autoplay=1&mute=0&loop=1&playlist=qbNUKmpYPtk";
