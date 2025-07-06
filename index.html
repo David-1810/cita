@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cita Virtual Contigo</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #FFF0F5;
+      font-family: 'Segoe UI', sans-serif;
+      color: #6A1B9A;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    h1 {
+      font-size: 1.8em;
+    }
+    .pantalla {
+      margin-top: 30px;
+    }
+    button {
+      background-color: #E1BEE7;
+      color: #4A235A;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 1em;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 80%;
+      max-width: 300px;
+    }
+    .verso {
+      font-style: italic;
+      color: #4A235A;
+      font-size: 1.1em;
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+    .atardecer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(to top, #FF7E5F, #FEB47B);
+      animation: atardecerAnimado 12s ease-in-out forwards;
+      z-index: -1;
+      opacity: 0;
+    }
+    @keyframes atardecerAnimado {
+      0% { opacity: 0; }
+      50% { opacity: 0.6; }
+      100% { opacity: 0.9; }
+    }
+    iframe {
+      display: none;
+    }
+    input[type="text"] {
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div class="atardecer" id="fondoAtardecer"></div>
+  <h1>Cita Virtual Contigo 💘</h1>
+  <div id="pantalla" class="pantalla"></div>
+  <iframe id="olasYouTube" width="0" height="0" src="" allow="autoplay"></iframe>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBxLoEzNtlOFwpaI_g96IeBD0aIdyUD5GM",
+      authDomain: "cita-70459.firebaseapp.com",
+      databaseURL: "https://cita-70459-default-rtdb.firebaseio.com",
+      projectId: "cita-70459",
+      storageBucket: "cita-70459.firebasestorage.app",
+      messagingSenderId: "266910138552",
+      appId: "1:266910138552:web:5f09212db3ffe87ffff44d",
+      measurementId: "G-S6LG686GL3"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const respuestas = [];
+    function guardarRespuesta(etapa, texto) {
+      respuestas.push({ etapa, texto });
+    }
+    async function enviarRespuestasAFirebase() {
+      try {
+        const fecha = new Date().toISOString();
+        await db.collection("respuestas").add({ respuestas, fecha });
+        alert("💌 Respuestas guardadas en Firebase");
+      } catch (error) {
+        console.error("Error al guardar en Firebase:", error);
+      }
+    }
+
+    const historia = {
+      inicio: {
+        texto: "¿Te gustaría venir conmigo a una playa secreta para una cita especial?",
+        opciones: [
+          { texto: "¡Sí! Me encantaría 🌅", siguiente: "llegamos_playa" },
+          { texto: "¿Playa secreta? suena misterioso...", siguiente: "curiosidad_playa" }
+        ]
+      },
+      curiosidad_playa: {
+        texto: "Lo es... pero solo para quienes saben disfrutar de la magia del momento. ¿Confías en mí para llevarte?",
+        opciones: [
+          { texto: "Confío en ti 💕", siguiente: "llegamos_playa" },
+          { texto: "Demuéstramelo con algo lindo", siguiente: "poema" }
+        ]
+      },
+      llegamos_playa: {
+        texto: "Llegamos a la playa. El atardecer pinta el cielo de rosa. ¿Qué quieres hacer primero?",
+        opciones: [
+          { texto: "Caminar descalzos por la orilla", siguiente: "caminar_orilla" },
+          { texto: "Sentarnos a mirar el mar", siguiente: "mirar_mar" }
+        ]
+      },
+      caminar_orilla: {
+        texto: "Siento tu mano rozar la mía... ¿La tomo suavemente o te dejo provocarme?",
+        opciones: [
+          { texto: "Tómala, estoy esperando eso", siguiente: "confesion" },
+          { texto: "Provócame, me encanta el juego", siguiente: "juego_mirada" }
+        ]
+      },
+      mirar_mar: {
+        texto: "Nos sentamos cerca, sin palabras... solo el sonido del mar. ¿En qué piensas mientras me miras?",
+        opciones: [
+          { texto: "En lo feliz que me haces", siguiente: "confesion" },
+          { texto: "En lo bien que se siente esto contigo", siguiente: "juego_mirada" },
+          { texto: "Quiero escribir lo que pienso...", personalizada: true, siguiente: "confesion" }
+        ]
+      },
+      confesion: {
+        texto: "Me acerco y te digo que tengo algo que confesarte... ¿Quieres saber qué es?",
+        opciones: [
+          { texto: "Sí, me muero de curiosidad", siguiente: "pregunta_extra1" },
+          { texto: "Solo si me lo dices mirándome a los ojos", siguiente: "pregunta_extra1" }
+        ]
+      },
+      pregunta_extra1: {
+        texto: "Me haces sentir algo muy especial. ¿Cómo te gustaría que terminara esta cita?",
+        opciones: [
+          { texto: "Con una fogata en la arena", siguiente: "pregunta_extra2" },
+          { texto: "Con un baile bajo las estrellas", siguiente: "pregunta_extra2" },
+          { texto: "Quiero escribir mi propia idea...", personalizada: true, siguiente: "pregunta_extra2" }
+        ]
+      },
+      pregunta_extra2: {
+        texto: "¿Te gustaría que te cantara algo o simplemente abrazarte fuerte?",
+        opciones: [
+          { texto: "Cántame algo desde el alma", siguiente: "pregunta_extra3" },
+          { texto: "Solo abrázame fuerte", siguiente: "pregunta_extra3" }
+        ]
+      },
+      pregunta_extra3: {
+        texto: "¿Te imaginas si esto fuera real? ¿Qué harías si estuviera contigo ahora mismo?",
+        opciones: [
+          { texto: "Te abrazaría sin soltarte", siguiente: "pregunta_extra4" },
+          { texto: "Te besaría bajo la luna", siguiente: "pregunta_extra4" },
+          { texto: "Prefiero escribir lo que haría...", personalizada: true, siguiente: "pregunta_extra4" }
+        ]
+      },
+      pregunta_extra4: {
+        texto: "¿Me dejarías robarte una sonrisa cada día?",
+        opciones: [
+          { texto: "Sí, siempre y cuando me robes besos también", siguiente: "pregunta_extra5" },
+          { texto: "Solo si prometes no devolverla jamás", siguiente: "pregunta_extra5" }
+        ]
+      },
+      pregunta_extra5: {
+        texto: "¿Y si te dijera que todo esto es apenas el inicio de muchas más aventuras juntos?",
+        opciones: [
+          { texto: "Entonces quiero más, muchas más...", siguiente: "pregunta_extra6" },
+          { texto: "Solo si me prometes que habrá más atardeceres contigo", siguiente: "pregunta_extra6" }
+        ]
+      },
+      pregunta_extra6: {
+        texto: "¿Crees que dos personas pueden conocerse en una sola cita, o prefieres mil momentos pequeñitos?",
+        opciones: [
+          { texto: "Prefiero mil momentos tuyos", siguiente: "pregunta_extra7" },
+          { texto: "Una cita puede decirlo todo", siguiente: "pregunta_extra7" }
+        ]
+      },
+      pregunta_extra7: {
+        texto: "Si tuvieras que susurrarme algo al oído, ¿qué me dirías?",
+        opciones: [
+          { texto: "Que me encantas más de lo que debería", siguiente: "pregunta_extra8" },
+          { texto: "Que no quiero que esto termine nunca", siguiente: "pregunta_extra8" }
+        ]
+      },
+      pregunta_extra8: {
+        texto: "¿Qué título le pondrías a este momento?",
+        opciones: [
+          { texto: "La cita perfecta que aún no ha ocurrido", siguiente: "poema" },
+          { texto: "Entre arena, risas y promesas", siguiente: "poema" }
+        ]
+      },
+      juego_mirada: {
+        texto: "Tus ojos me retan dulcemente. ¿Jugamos a adivinar lo que pensamos el uno del otro?",
+        opciones: [
+          { texto: "Va, pero tú primero 😉", siguiente: "pregunta_extra1" },
+          { texto: "Solo si me das una pista con un beso", siguiente: "pregunta_extra1" }
+        ]
+      }
+    };
+
+    function reproducirSonidoOlas() {
+      document.getElementById("olasYouTube").src = "https://www.youtube.com/embed/qbNUKmpYPtk?autoplay=1&mute=0&loop=1&playlist=qbNUKmpYPtk";
+    }
+
+    function mostrarPantalla(etapa) {
+      const div = document.getElementById("pantalla");
+      div.innerHTML = "";
+
+      if (etapa === "poema") {
+        document.getElementById("fondoAtardecer").style.opacity = "1";
+        mostrarPoema();
+        return;
+      }
+
+      if (etapa === "llegamos_playa") {
+        reproducirSonidoOlas();
+      }
+
+      const data = historia[etapa];
+      const p = document.createElement("p");
+      p.textContent = data.texto;
+      div.appendChild(p);
+
+      data.opciones.forEach(op => {
+        if (op.personalizada) {
+          const input = document.createElement("input");
+          input.type = "text";
+          input.placeholder = "Escribe lo que estás pensando...";
+          div.appendChild(input);
+
+          const btn = document.createElement("button");
+          btn.textContent = op.texto;
+          btn.onclick = () => {
+            const texto = input.value.trim();
+            if (texto !== "") {
+              guardarRespuesta(etapa, texto);
+              mostrarPantalla(op.siguiente);
+            } else {
+              alert("Por favor escribe algo antes de continuar");
+            }
+          };
+          div.appendChild(btn);
+        } else {
+          const btn = document.createElement("button");
+          btn.textContent = op.texto;
+          btn.onclick = () => {
+            guardarRespuesta(etapa, op.texto);
+            mostrarPantalla(op.siguiente);
+          };
+          div.appendChild(btn);
+        }
+      });
+    }
+
+    function mostrarPoema() {
+      const div = document.getElementById("pantalla");
+      div.innerHTML = "<h2>Para ti, mi inspiración:</h2>";
+      escribirVerso(0);
+      enviarRespuestasAFirebase();
+    }
+
+    function escribirVerso(i) {
+      if (i >= poema.length) return;
+      const div = document.getElementById("pantalla");
+      const p = document.createElement("p");
+      p.className = "verso";
+      p.textContent = poema[i];
+      div.appendChild(p);
+      setTimeout(() => escribirVerso(i + 1), 1600);
+    }
+
+    const poema = [
+      "Somos imperfectos, pero qué delicia serlo contigo...",
+      "como dos piezas que no encajan pero insisten en abrazarse.",
+      "",
+      "Y aunque aún no he probado tus labios,",
+      "no dejo de imaginar a qué sabrán tus besos...",
+      "¿serán como atardeceres naranjados, dulces y envolventes?",
+      "",
+      "No somos un cuento clásico,",
+      "pero cada segundo contigo es un verso inesperado",
+      "y caricia que se escribe en mi memoria. 🔥"
+    ];
+
+    mostrarPantalla("inicio");
+  </script>
+</body>
+</html>
