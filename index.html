@@ -1,112 +1,165 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cita Virtual Contigo</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      background-color: #FFF0F5;
-      font-family: 'Segoe UI', sans-serif;
-      color: #6A1B9A;
-      text-align: center;
-      overflow-x: hidden;
-    }
-    h1 {
-      font-size: 1.8em;
-    }
-    .pantalla {
-      margin-top: 30px;
-    }
-    button {
-      background-color: #E1BEE7;
-      color: #4A235A;
-      border: none;
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 1em;
-      border-radius: 12px;
-      cursor: pointer;
-      width: 80%;
-      max-width: 300px;
-    }
-    .verso {
-      font-style: italic;
-      color: #4A235A;
-      font-size: 1.1em;
-      line-height: 1.6;
-      margin: 10px 0;
-    }
-    .atardecer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: linear-gradient(to top, #FF7E5F, #FEB47B);
-      animation: atardecerAnimado 12s ease-in-out forwards;
-      z-index: -1;
-      opacity: 0;
-    }
-    @keyframes atardecerAnimado {
-      0% { opacity: 0; }
-      50% { opacity: 0.6; }
-      100% { opacity: 0.9; }
-    }
-    iframe {
-      display: none;
-    }
-    input[type="text"] {
-      margin-top: 10px;
-      padding: 10px;
-      font-size: 1em;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      width: 80%;
-      max-width: 300px;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momento Único</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #FFF0F5;
+            font-family: 'Segoe UI', sans-serif;
+            color: #6A1B9A;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-size: 1.8em;
+        }
+
+        .pantalla {
+            margin-top: 30px;
+        }
+
+        .verso {
+            font-style: italic;
+            color: #4A235A;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .atardecer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(to top, #FF7E5F, #FEB47B);
+            animation: atardecerAnimado 12s ease-in-out forwards;
+            z-index: -1;
+            opacity: 0;
+        }
+
+        @keyframes atardecerAnimado {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+
+            100% {
+                opacity: 0.9;
+            }
+        }
+
+        iframe {
+            display: none;
+        }
+
+        .respuestaFinal {
+            background: #f9eafc;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 30px;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(106, 27, 154, 0.2);
+        }
+
+        input[type="text"] {
+            margin: 15px 0 10px;
+            padding: 12px;
+            font-size: 1em;
+            border: 2px solid #D7BDE2;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 320px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #BA68C8;
+            outline: none;
+            background-color: #fff;
+        }
+
+        button {
+            background-color: #D7BDE2;
+            color: #4A235A;
+            border: none;
+            padding: 12px 24px;
+            margin: 10px 5px;
+            font-size: 1em;
+            border-radius: 14px;
+            cursor: pointer;
+            width: auto;
+            box-shadow: 0 4px 8px rgba(106, 27, 154, 0.2);
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #C39BD3;
+            transform: scale(1.03);
+        }
+
+        .despedida {
+            background-color: #f3dff7;
+            color: #6A1B9A;
+            padding: 16px;
+            margin-top: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(106, 27, 154, 0.15);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="atardecer" id="fondoAtardecer"></div>
-  <h1>Cita Virtual Contigo 💘</h1>
-  <div id="pantalla" class="pantalla"></div>
-  <iframe id="olasYouTube" width="0" height="0" src="" allow="autoplay"></iframe>
+    <div class="atardecer" id="fondoAtardecer"></div>
+    <h1>Momento Único</h1>
+    <div id="pantalla" class="pantalla"></div>
+    <iframe id="olasYouTube" width="0" height="0" src="" allow="autoplay"></iframe>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCIsuPHYYhxQYbz5zTJZyr63xJ100shyoo",
-      authDomain: "prueba-5a28c.firebaseapp.com",
-      projectId: "prueba-5a28c",
-      storageBucket: "prueba-5a28c.firebasestorage.app",
-      messagingSenderId: "1003817153957",
-      appId: "1:1003817153957:web:aa74e747452f1fe361a44c"
-    };
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCIsuPHYYhxQYbz5zTJZyr63xJ100shyoo",
+            authDomain: "prueba-5a28c.firebaseapp.com",
+            projectId: "prueba-5a28c",
+            storageBucket: "prueba-5a28c.firebasestorage.app",
+            messagingSenderId: "1003817153957",
+            appId: "1:1003817153957:web:aa74e747452f1fe361a44c"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+        const respuestas = [];
+        function guardarRespuesta(etapa, texto) {
+            respuestas.push({ etapa, texto });
+        }
+        async function enviarRespuestasAFirebase() {
+            try {
+                const fecha = new Date().toISOString();
+                await db.collection("respuestas").add({ respuestas, fecha });
+                console.log("💌 Respuestas guardadas");
+            } catch (error) {
+                console.error("Error al guardar:", error);
+            }
+        }
 
-    const respuestas = [];
-    function guardarRespuesta(etapa, texto) {
-      respuestas.push({ etapa, texto });
-    }
-    async function enviarRespuestasAFirebase() {
-      try {
-        const fecha = new Date().toISOString();
-        await db.collection("respuestas").add({ respuestas, fecha });
-        console.log("💌 Respuestas guardadas");
-      } catch (error) {
-        console.error("Error al guardar:", error);
-      }
-    }
-
-    const historia = {
+        const historia = {
             inicio: {
                 texto: "¿Te gustaría venir conmigo a una playa secreta para una cita especial?",
                 opciones: [
@@ -158,7 +211,6 @@
                     { texto: "Quiero escribir mi propia idea...", personalizada: true, siguiente: "pregunta_extra2" }
                 ]
             },
-
             pregunta_extra2: {
                 texto: "¿Te gustaría que te cantara algo o simplemente abrazarte fuerte?",
                 opciones: [
@@ -179,7 +231,7 @@
                 opciones: [
                     { texto: "Sí, siempre y cuando me robes besos también", siguiente: "pregunta_extra5" },
                     { texto: "Solo si prometes no devolverla jamás", siguiente: "pregunta_extra5" },
-                    { texto: "Prefiero escribir lo que haría...", personalizada: true, siguiente: "pregunta_extra4" }
+                    { texto: "Prefiero escribir lo que haría...", personalizada: true, siguiente: "pregunta_extra5" }
                 ]
             },
             pregunta_extra5: {
@@ -223,91 +275,152 @@
             }
         };
 
-    function reproducirSonidoOlas() {
-      document.getElementById("olasYouTube").src = "https://www.youtube.com/embed/qbNUKmpYPtk?autoplay=1&mute=0&loop=1&playlist=qbNUKmpYPtk";
-    }
+        const poema = [
+            "Somos imperfectos, pero qué delicia serlo contigo...",
+            "como dos piezas que no encajan pero insisten en abrazarse.",
+            "",
+            "Y aunque aún no he probado tus labios,",
+            "no dejo de imaginar a qué sabrán tus besos...",
+            "¿serán como atardeceres naranjados, dulces y envolventes?",
+            "",
+            "No somos un cuento clásico,",
+            "pero cada segundo contigo es un verso inesperado",
+            "y caricia que se escribe en mi memoria."
+        ];
 
-    function mostrarPantalla(etapa) {
-      const div = document.getElementById("pantalla");
-      div.innerHTML = "";
-
-      if (etapa === "poema") {
-        document.getElementById("fondoAtardecer").style.opacity = "1";
-        mostrarPoema();
-        return;
-      }
-
-      if (etapa === "llegamos_playa") {
-        reproducirSonidoOlas();
-      }
-
-      const data = historia[etapa];
-      const p = document.createElement("p");
-      p.textContent = data.texto;
-      div.appendChild(p);
-
-      data.opciones.forEach(op => {
-        if (op.personalizada) {
-          const input = document.createElement("input");
-          input.type = "text";
-          input.placeholder = "Escribe lo que estás pensando...";
-          div.appendChild(input);
-
-          const btn = document.createElement("button");
-          btn.textContent = op.texto;
-          btn.onclick = () => {
-            const texto = input.value.trim();
-            if (texto !== "") {
-              guardarRespuesta(etapa, texto);
-              mostrarPantalla(op.siguiente);
-            } else {
-              alert("Por favor escribe algo antes de continuar");
-            }
-          };
-          div.appendChild(btn);
-        } else {
-          const btn = document.createElement("button");
-          btn.textContent = op.texto;
-          btn.onclick = () => {
-            guardarRespuesta(etapa, op.texto);
-            mostrarPantalla(op.siguiente);
-          };
-          div.appendChild(btn);
+        function reproducirSonidoOlas() {
+            document.getElementById("olasYouTube").src =
+                "https://www.youtube.com/embed/qbNUKmpYPtk?autoplay=1&mute=0&loop=1&playlist=qbNUKmpYPtk";
         }
-      });
-    }
 
-    function mostrarPoema() {
-      const div = document.getElementById("pantalla");
-      div.innerHTML = "<h2>Para ti, mi inspiración:</h2>";
-      escribirVerso(0);
-      enviarRespuestasAFirebase();
-    }
+        function mostrarPantalla(etapa) {
+            const div = document.getElementById("pantalla");
+            div.innerHTML = "";
+            if (etapa === "poema") {
+                document.getElementById("fondoAtardecer").style.opacity = "1";
+                mostrarPoema();
+                return;
+            }
+            if (etapa === "llegamos_playa") {
+                reproducirSonidoOlas();
+            }
+            const data = historia[etapa];
+            const p = document.createElement("p");
+            p.textContent = data.texto;
+            div.appendChild(p);
+            data.opciones.forEach(op => {
+                if (op.personalizada) {
+                    const input = document.createElement("input");
+                    input.type = "text";
+                    input.placeholder = "Escribe lo que estás pensando...";
+                    div.appendChild(input);
+                    const btn = document.createElement("button");
+                    btn.textContent = op.texto;
+                    btn.onclick = () => {
+                        const texto = input.value.trim();
+                        if (texto !== "") {
+                            guardarRespuesta(etapa, texto);
+                            mostrarPantalla(op.siguiente);
+                        } else {
+                            alert("Por favor escribe algo antes de continuar");
+                        }
+                    };
+                    div.appendChild(btn);
+                } else {
+                    const btn = document.createElement("button");
+                    btn.textContent = op.texto;
+                    btn.onclick = () => {
+                        guardarRespuesta(etapa, op.texto);
+                        mostrarPantalla(op.siguiente);
+                    };
+                    div.appendChild(btn);
+                }
+            });
+        }
 
-    function escribirVerso(i) {
-      if (i >= poema.length) return;
-      const div = document.getElementById("pantalla");
-      const p = document.createElement("p");
-      p.className = "verso";
-      p.textContent = poema[i];
-      div.appendChild(p);
-      setTimeout(() => escribirVerso(i + 1), 1600);
-    }
+        function mostrarPoema() {
+            const div = document.getElementById("pantalla");
+            div.innerHTML = "<h2>Para ti, mi inspiración:</h2>";
+            escribirVerso(0);
+        }
 
-    const poema = [
-      "Somos imperfectos, pero qué delicia serlo contigo...",
-      "como dos piezas que no encajan pero insisten en abrazarse.",
-      "",
-      "Y aunque aún no he probado tus labios,",
-      "no dejo de imaginar a qué sabrán tus besos...",
-      "¿serán como atardeceres naranjados, dulces y envolventes?",
-      "",
-      "No somos un cuento clásico,",
-      "pero cada segundo contigo es un verso inesperado",
-      "y caricia que se escribe en mi memoria. 🔥"
-    ];
+        function escribirVerso(i) {
+            if (i >= poema.length) {
+                setTimeout(mostrarPreguntaFinal, 1600);
+                return;
+            }
+            const div = document.getElementById("pantalla");
+            const p = document.createElement("p");
+            p.className = "verso";
+            p.textContent = poema[i];
+            div.appendChild(p);
+            setTimeout(() => escribirVerso(i + 1), 1600);
+        }
 
-    mostrarPantalla("inicio");
-  </script>
+        async function mostrarPreguntaFinal() {
+            const div = document.getElementById("pantalla");
+            const contenedor = document.createElement("div");
+            contenedor.id = "preguntaFinal";
+            contenedor.className = "respuestaFinal";
+
+            const p = document.createElement("p");
+            p.textContent = "Dime una cosita... ¿Te gustó esta cita secreta? 💌 ¿Repetimos pronto o me haces rogar un poco más? 😏";
+            contenedor.appendChild(p);
+
+            const opciones = [
+                { texto: "Me encantó, quiero otra ya 💕", respuesta: "quiere repetir" },
+                { texto: "Quizás... si me convences 😉", respuesta: "quiere que le rueguen" }
+            ];
+
+            opciones.forEach(op => {
+                const btn = document.createElement("button");
+                btn.textContent = op.texto;
+                btn.onclick = async () => {
+                    guardarRespuesta("pregunta_final", op.respuesta);
+                    await enviarRespuestasAFirebase();
+                    eliminarPreguntaFinal();
+                    mostrarDespedida();
+                };
+                contenedor.appendChild(btn);
+            });
+
+            const input = document.createElement("input");
+            input.type = "text";
+            input.placeholder = "O escribe tú lo que piensas...";
+            contenedor.appendChild(input);
+
+            const btnPersonal = document.createElement("button");
+            btnPersonal.textContent = "Enviar mi propia respuesta 💌";
+            btnPersonal.onclick = async () => {
+                const texto = input.value.trim();
+                if (texto !== "") {
+                    guardarRespuesta("pregunta_final", texto);
+                    await enviarRespuestasAFirebase();
+                    eliminarPreguntaFinal();
+                    mostrarDespedida();
+                } else {
+                    alert("Escribe algo antes de enviarlo, por favor");
+                }
+            };
+            contenedor.appendChild(btnPersonal);
+            div.appendChild(contenedor);
+        }
+
+        function eliminarPreguntaFinal() {
+            const contenedor = document.getElementById("preguntaFinal");
+            if (contenedor) contenedor.remove();
+        }
+
+        function mostrarDespedida() {
+            const div = document.getElementById("pantalla");
+            const p = document.createElement("p");
+            p.className = "despedida";
+            p.textContent = "Entonces solo queda esperar... la próxima cita está en camino 💘";
+            div.appendChild(p);
+        }
+
+        mostrarPantalla("inicio");
+    </script>
 </body>
+
 </html>
