@@ -100,9 +100,9 @@
       try {
         const fecha = new Date().toISOString();
         await db.collection("respuestas").add({ respuestas, fecha });
-        alert("💌 Respuestas guardadas en Firebase");
+        console.log("💌 Respuestas guardadas");
       } catch (error) {
-        console.error("Error al guardar en Firebase:", error);
+        console.error("Error al guardar:", error);
       }
     }
 
